@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';"
+  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Browser</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="top-chrome" id="top-chrome">
+      <div class="window-titlebar" id="window-titlebar">
+        <div class="window-title-group">
+          <span class="window-icon" aria-hidden="true"></span>
+          <span class="window-title">Mi Browser</span>
+        </div>
+
+        <div class="window-controls" aria-label="Window controls">
+          <button
+            class="caption-button caption-minimize"
+            id="minimize-window-button"
+            type="button"
+            aria-label="Minimize window"
+          >
+            <span class="caption-glyph" aria-hidden="true"></span>
+          </button>
+          <button
+            class="caption-button caption-maximize"
+            id="maximize-window-button"
+            type="button"
+            aria-label="Maximize window"
+          >
+            <span class="caption-glyph" aria-hidden="true"></span>
+          </button>
+          <button
+            class="caption-button caption-close"
+            id="close-window-button"
+            type="button"
+            aria-label="Close window"
+          >
+            <span class="caption-glyph" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="menu-bar" aria-hidden="true">
+        <span class="menu-item">File</span>
+        <span class="menu-item">Edit</span>
+        <span class="menu-item">View</span>
+        <span class="menu-item">Favorites</span>
+        <span class="menu-item">Tools</span>
+        <span class="menu-item">Help</span>
+      </div>
+
+      <div class="tab-strip">
+        <div class="tabs" id="tabs" aria-label="Open tabs"></div>
+        <button class="new-tab-button" id="new-tab-button" type="button" aria-label="New tab">+</button>
+      </div>
+
+      <div class="toolbar">
+        <div class="nav-buttons">
+          <button class="nav-button" id="back-button" type="button" aria-label="Back">Back</button>
+          <button class="nav-button" id="forward-button" type="button" aria-label="Forward">Forward</button>
+          <button class="nav-button" id="reload-button" type="button" aria-label="Reload">Refresh</button>
+        </div>
+
+        <div class="toolbar-separator" aria-hidden="true"></div>
+
+        <div class="address-wrap">
+          <label class="address-label" for="address-bar">Address</label>
+          <form class="address-form" id="address-form">
+            <input
+              class="address-bar"
+              id="address-bar"
+              type="text"
+              spellcheck="false"
+              autocomplete="off"
+              placeholder="Search DuckDuckGo or type a URL"
+            >
+          </form>
+        </div>
+      </div>
+    </header>
+
+    <main class="browser-stage" aria-hidden="true">
+      <div class="empty-state">
+        <h1>Mi Browser</h1>
+        <p>Tabs render below this chrome using Electron BrowserView.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

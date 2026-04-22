@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Google!</title>
+  <style>
+    @font-face {
+      font-family: 'Pixel Arial';
+      src: url('pixel-arial-14.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Pixel Arial', 'MS Sans Serif', Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      background: #fff;
+      color: #000;
+      -webkit-font-smoothing: none;
+      font-smooth: never;
+      letter-spacing: 1px;
+    }
+
+    #main-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 70px;
+    }
+
+    .logo-wrap {
+      margin-bottom: 22px;
+      text-align: center;
+    }
+
+    /* Grey search box */
+    .search-box-area {
+      background: #ebebeb;
+      border: none;
+      padding: 14px 36px 16px 36px;
+      text-align: center;
+      width: 920px;
+    }
+
+    .search-label {
+      font-size: 14px;
+      color: #000;
+      margin-bottom: 8px;
+      display: block;
+      letter-spacing: 1px;
+    }
+
+    .search-input-main {
+      width: 360px;
+      height: 24px;
+      border: 2px inset #aaa;
+      font-size: 14px;
+      font-family: 'Pixel Arial', 'MS Sans Serif', Arial, sans-serif;
+      padding: 2px 6px;
+      outline: none;
+      background: #fff;
+      letter-spacing: 1px;
+    }
+
+    .btn-row {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .search-btn {
+      height: 26px;
+      padding: 0 16px;
+      font-size: 13px;
+      font-family: 'Pixel Arial', 'MS Sans Serif', Arial, sans-serif;
+      background: #d4d0c8;
+      border: 2px outset #d4d0c8;
+      cursor: pointer;
+      color: #000;
+      letter-spacing: 1px;
+    }
+
+    .search-btn:active { border-style: inset; }
+
+    /* 3 columns teal */
+    .bottom-cols {
+      width: 920px;
+      display: flex;
+      border: none;
+    }
+
+    .col {
+      flex: 1;
+      background: #7de8e2;
+      padding: 12px 12px 14px 12px;
+      text-align: center;
+      border-right: none;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    
+
+    .col-title {
+      font-weight: 400;
+      color: #000;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .col a {
+      color: #00c;
+      text-decoration: underline;
+      display: block;
+      font-size: 13px;
+      margin: 2px 0;
+      letter-spacing: 1px;
+    }
+
+    .col a:hover { text-decoration: underline; }
+    .col:nth-child(1) { background: #7de8e2; }
+    .col:nth-child(2) { background: #5cd4ce; }
+    .col:nth-child(3) { background: #4abfb9; }
+
+    .newsletter-input {
+      width: 120px;
+      height: 20px;
+      font-size: 12px;
+      border: 2px inset #aaa;
+      padding: 1px 3px;
+      font-family: 'Pixel Arial', 'MS Sans Serif', Arial, sans-serif;
+      background: #fff;
+      color: #888;
+    }
+
+    .subscribe-btn {
+      height: 22px;
+      padding: 0 8px;
+      font-size: 12px;
+      font-family: 'Pixel Arial', 'MS Sans Serif', Arial, sans-serif;
+      background: #d4d0c8;
+      border: 2px outset #d4d0c8;
+      cursor: pointer;
+      letter-spacing: 1px;
+    }
+
+    .subscribe-btn:active { border-style: inset; }
+
+    .col-right-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .copyright {
+      margin-top: 16px;
+      font-size: 13px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    /* ══════════════════════════════
+       RESULTS PAGE
+    ══════════════════════════════ */
+    #results-page { display: none; }
+
+    .res-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .res-search-input {
+      width: 320px;
+      height: 24px;
+      border: 2px inset #aaa;
+      font-size: 13px;
+      font-family: 'Pixel Arial', 'MS Sans Serif', Arial, sans-serif;
+      padding: 1px 4px;
+      outline: none;
+      letter-spacing: 1px;
+    }
+
+    .res-count-select {
+      height: 24px;
+      font-size: 13px;
+      font-family: 'Pixel Arial', 'MS Sans Serif', Arial, sans-serif;
+      border: 1px solid #888;
+    }
+
+    .res-btn {
+      height: 24px;
+      padding: 0 12px;
+      font-size: 13px;
+      font-family: 'Pixel Arial', 'MS Sans Serif', Arial, sans-serif;
+      background: #d4d0c8;
+      border: 2px outset #d4d0c8;
+      cursor: pointer;
+      letter-spacing: 1px;
+    }
+
+    .res-btn:active { border-style: inset; }
+
+    .res-body {
+      padding: 6px 22px 30px 22px;
+      max-width: 640px;
+    }
+
+    .res-stats {
+      font-size: 12px;
+      color: #555;
+      margin: 6px 0 2px 0;
+      text-align: center;
+      letter-spacing: 0.8px;
+    }
+
+    hr.res-hr {
+      border: none;
+      border-top: 1px solid #ccc;
+      margin: 6px 0 10px 0;
+    }
+
+    .result-item { margin-bottom: 20px; }
+
+    .result-title a {
+      font-size: 14px;
+      color: #00c;
+      text-decoration: none;
+      font-weight: bold;
+      letter-spacing: 0.8px;
+    }
+
+    .result-title a:hover { text-decoration: underline; }
+    .result-title a:visited { color: #551a8b; }
+
+    .result-snippet {
+      font-size: 13px;
+      color: #000;
+      line-height: 1.5;
+      margin: 2px 0 3px 0;
+      letter-spacing: 0.8px;
+    }
+
+    .result-snippet b { font-weight: bold; }
+
+    .result-meta {
+      font-size: 12px;
+      color: #080;
+      letter-spacing: 0.8px;
+    }
+
+    .result-meta a {
+      color: #00c;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .result-meta a:hover { text-decoration: underline; }
+
+    #loading {
+      display: none;
+      font-size: 13px;
+      color: #555;
+      padding: 30px;
+      text-align: center;
+    }
+
+    #error-msg {
+      display: none;
+      color: red;
+      font-size: 12px;
+      padding: 10px 0;
+    }
+
+    .pagination {
+      margin-top: 20px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2px;
+    }
+
+    .page-res-logo {
+      font-family: 'Pixel Arial', 'MS Sans Serif', Arial, sans-serif;
+      font-size: 22px;
+      font-weight: bold;
+      margin-right: 4px;
+    }
+
+    .page-btn {
+      background: none;
+      border: none;
+      color: #00c;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: 'Pixel Arial', 'MS Sans Serif', Arial, sans-serif;
+      padding: 2px 5px;
+      letter-spacing: 0.8px;
+    }
+
+    .page-btn:hover { text-decoration: underline; }
+    .page-btn.current { color: #000; font-weight: bold; cursor: default; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<!-- ════════ MAIN PAGE ════════ -->
+<div id="main-page">
+
+  <div class="logo-wrap">
+    <img src="./Image/Googlebeta.png" alt="Google!" style="height:120px; mix-blend-mode:multiply;">
+  </div>
+
+  <div class="search-box-area">
+    <span class="search-label">Search the web using Google!</span>
+    <input type="text" class="search-input-main" id="main-input" autocomplete="off"
+           onkeydown="if(event.key==='Enter') doSearch()">
+    <div class="btn-row">
+      <button class="search-btn" onclick="doSearch()">Google Search</button>
+      <button class="search-btn" onclick="doSearch()">I'm feeling lucky</button>
+    </div>
+  </div>
+
+  <div class="bottom-cols">
+    <div class="col">
+      <span class="col-title">Special Searches</span>
+      <a href="#">Stanford Search</a>
+      <a href="#">Linux Search</a>
+    </div>
+    <div class="col">
+      <a href="#">Help!</a>
+      <a href="#">About Google!</a>
+      <a href="#">Company Info</a>
+      <a href="#">Google! Logos</a>
+    </div>
+    <div class="col">
+      <span class="col-title">Get Google!<br>updates monthly:</span>
+      <input class="newsletter-input" value="your e-mail"
+             onfocus="if(this.value==='your e-mail'){this.value='';this.style.color='#000'}"
+             onblur="if(this.value===''){this.value='your e-mail';this.style.color='#888'}">
+      <div class="col-right-row">
+        <button class="subscribe-btn">Subscribe</button>
+        <a href="#">Archive</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="copyright">Copyright ©1998 Google Inc.</div>
+
+</div>
+
+
+<!-- ════════ RESULTS PAGE ════════ -->
+<div id="results-page">
+
+  <div class="res-header">
+    <img src="./Image/Googlebeta.png" alt="Google!" onclick="goHome()" style="height:38px; mix-blend-mode:multiply; cursor:pointer;">
+    <input type="text" class="res-search-input" id="res-input" autocomplete="off"
+           onkeydown="if(event.key==='Enter') doSearchFromRes()">
+    <select class="res-count-select">
+      <option>10 results</option>
+      <option>25 results</option>
+      <option>50 results</option>
+    </select>
+    <button class="res-btn" onclick="doSearchFromRes()">Google Search</button>
+    <button class="res-btn" onclick="doSearchFromRes()">I'm feeling lucky</button>
+  </div>
+
+  <div class="res-body">
+    <div id="loading">Searching the web...</div>
+    <div id="error-msg"></div>
+    <div id="res-stats" class="res-stats"></div>
+    <hr class="res-hr" id="res-hr" style="display:none">
+    <div id="res-list"></div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+</div>
+
+
+<script>
+  let currentQuery = '';
+  let currentPage  = 0;
+  const SEARCH_PROXY_BASE_URL = 'http://127.0.0.1:3000/search';
+
+  window.onload = () => applyRouteState({ focusHomeInput: true });
+  window.addEventListener('popstate', () => applyRouteState());
+
+  function readRouteState() {
+    const url = new URL(window.location.href);
+    const query = (url.searchParams.get('q') || '').trim();
+    const pageValue = Number.parseInt(url.searchParams.get('page') || '0', 10);
+
+    return {
+      query,
+      page: Number.isNaN(pageValue) || pageValue < 0 ? 0 : pageValue
+    };
+  }
+
+  function buildRouteUrl(query, page) {
+    const url = new URL(window.location.href);
+    url.search = '';
+    url.hash = '';
+
+    if (query) {
+      url.searchParams.set('q', query);
+      if (page > 0) {
+        url.searchParams.set('page', String(page));
+      }
+    }
+
+    return url.toString();
+  }
+
+  function syncRoute(query, page, replaceHistory = false) {
+    const nextUrl = buildRouteUrl(query, page);
+    if (nextUrl === window.location.href) return;
+
+    const method = replaceHistory ? 'replaceState' : 'pushState';
+    history[method]({ query, page }, '', nextUrl);
+  }
+
+  function showHome(options = {}) {
+    const { focusInput = false, updateHistory = false, replaceHistory = false } = options;
+
+    currentQuery = '';
+    currentPage = 0;
+    document.title = 'Google!';
+    document.getElementById('results-page').style.display = 'none';
+    document.getElementById('main-page').style.display    = 'flex';
+    document.getElementById('main-input').value = '';
+    document.getElementById('res-input').value = '';
+
+    if (updateHistory) {
+      syncRoute('', 0, replaceHistory);
+    }
+
+    if (focusInput) {
+      document.getElementById('main-input').focus();
+    }
+  }
+
+  function goHome() {
+    showHome({ focusInput: true, updateHistory: true });
+  }
+
+  function normalizeSearchQuery(value) {
+    return String(value || '').trim();
+  }
+
+  function doSearch() {
+    const q = normalizeSearchQuery(document.getElementById('main-input').value);
+    if (!q) return;
+    fetchAndShow(q, 0, { updateHistory: true });
+  }
+
+  function doSearchFromRes() {
+    const q = normalizeSearchQuery(document.getElementById('res-input').value);
+    if (!q) return;
+    fetchAndShow(q, 0, { updateHistory: true });
+  }
+
+  function logSearchEvent(label, data) {
+    console.log(`[search] ${label}: ${JSON.stringify(data)}`);
+  }
+
+  function buildProxySearchUrl(query, offset) {
+    const proxyUrl = new URL(SEARCH_PROXY_BASE_URL);
+    proxyUrl.search = new URLSearchParams({
+      q: String(query || ''),
+      s: String(offset || 0)
+    }).toString();
+    return proxyUrl.toString();
+  }
+
+  function findFirst(root, selectors) {
+    for (const selector of selectors) {
+      const match = root.querySelector(selector);
+      if (match) {
+        return match;
+      }
+    }
+
+    return null;
+  }
+
+  function normalizeProviderHref(rawHref) {
+    if (!rawHref) {
+      return '';
+    }
+
+    try {
+      const resolved = new URL(rawHref, 'https://html.duckduckgo.com');
+      const redirectHref = resolved.searchParams.get('uddg') || resolved.searchParams.get('rut');
+      return redirectHref || resolved.toString();
+    } catch {
+      return rawHref;
+    }
+  }
+
+  function extractProviderResults(doc) {
+    const candidates = Array.from(
+      doc.querySelectorAll('.result, .results_links, .results_links_deep, .result--web, .web-result')
+    );
+    const items = [];
+    const seen = new Set();
+
+    candidates.forEach((resultEl) => {
+      const titleEl = findFirst(resultEl, [
+        'a.result__a',
+        '.result__title a',
+        'h2 a',
+        'h3 a',
+        'a[data-testid="result-title-a"]'
+      ]);
+      if (!titleEl) {
+        return;
+      }
+
+      const title = (titleEl.textContent || '').replace(/\s+/g, ' ').trim();
+      const href = normalizeProviderHref(titleEl.getAttribute('href') || titleEl.href || '');
+      if (!title || !href) {
+        return;
+      }
+
+      const dedupeKey = `${title}\n${href}`;
+      if (seen.has(dedupeKey)) {
+        return;
+      }
+      seen.add(dedupeKey);
+
+      const snippetEl = findFirst(resultEl, [
+        '.result__snippet',
+        '.result__description',
+        '.result-snippet'
+      ]);
+      const urlEl = findFirst(resultEl, [
+        '.result__url',
+        'a.result__url',
+        '.result__extras__url',
+        '.result__badge'
+      ]);
+
+      items.push({
+        title,
+        href,
+        snippet: snippetEl ? snippetEl.innerHTML.trim() : '',
+        url: urlEl ? (urlEl.textContent || '').replace(/\s+/g, ' ').trim() : ''
+      });
+    });
+
+    return items;
+  }
+
+  function providerReturnedNoResults(doc) {
+    if (findFirst(doc, [
+      '.no-results',
+      '.results--no-results',
+      '.results--empty',
+      '.msg--no-result'
+    ])) {
+      return true;
+    }
+
+    const bodyText = doc.body ? doc.body.textContent.replace(/\s+/g, ' ').trim() : '';
+    return Boolean(bodyText) && /\b(no results found|no results|did not match any documents)\b/i.test(bodyText);
+  }
+
+  function buildDisplayUrl(displayUrl, realHref) {
+    if (displayUrl) {
+      return displayUrl;
+    }
+
+    try {
+      const url = new URL(realHref);
+      const path = url.pathname !== '/' ? url.pathname.substring(0, 40) : '';
+      return `${url.hostname}${path}`;
+    } catch {
+      return realHref;
+    }
+  }
+
+  async function tryProxies(query, offset) {
+    const proxyUrl = buildProxySearchUrl(query, offset);
+    logSearchEvent('query sent', { query, offset, url: proxyUrl });
+    const resp = await fetch(proxyUrl, {
+      signal: AbortSignal.timeout(10000)
+    });
+    const text = await resp.text();
+    if (!text || text.length < 100) throw new Error('Respuesta vacía');
+    return text;
+  }
+
+  async function fetchAndShow(query, page, options = {}) {
+    const { updateHistory = false, replaceHistory = false } = options;
+
+    currentQuery = query;
+    currentPage = page;
+    document.title = `${query} - Google!`;
+
+    if (updateHistory) {
+      syncRoute(query, page, replaceHistory);
+    }
+
+    document.getElementById('main-page').style.display    = 'none';
+    document.getElementById('results-page').style.display = 'block';
+    document.getElementById('main-input').value = query;
+    document.getElementById('res-input').value = query;
+
+    const loadEl  = document.getElementById('loading');
+    const listEl  = document.getElementById('res-list');
+    const statsEl = document.getElementById('res-stats');
+    const paginEl = document.getElementById('pagination');
+    const errEl   = document.getElementById('error-msg');
+    const hrEl    = document.getElementById('res-hr');
+
+    loadEl.style.display = 'block';
+    listEl.innerHTML = statsEl.innerHTML = paginEl.innerHTML = '';
+    errEl.style.display = hrEl.style.display = 'none';
+
+    try {
+      const offset = page * 10;
+      const ddgUrl = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}&s=${offset}`;
+
+      const html = await tryProxies(ddgUrl);
+      loadEl.style.display = 'none';
+
+      const doc   = new DOMParser().parseFromString(html, 'text/html');
+      const items = [];
+
+      doc.querySelectorAll('.result').forEach(div => {
+        const titleEl   = div.querySelector('.result__a');
+        const snippetEl = div.querySelector('.result__snippet');
+        const urlEl     = div.querySelector('.result__url');
+        if (!titleEl) return;
+        items.push({
+          title   : titleEl.textContent.trim(),
+          href    : titleEl.getAttribute('href') || '#',
+          snippet : snippetEl ? snippetEl.innerHTML : '',
+          url     : urlEl ? urlEl.textContent.trim() : ''
+        });
+      });
+
+      if (!items.length) {
+        statsEl.innerHTML = `Your search - <b>${esc(query)}</b> - did not match any documents.`;
+        return;
+      }
+
+      const from = offset + 1, to = offset + items.length;
+      statsEl.innerHTML = `Showing results ${from} - ${to} of approximately 234,000 for <b>${esc(query)}</b>. Search took 0.06 seconds.`;
+      hrEl.style.display = 'block';
+
+      items.forEach(r => {
+        let realHref = r.href;
+        try {
+          const u = new URL(r.href.startsWith('//') ? 'https:' + r.href : r.href);
+          const uddg = u.searchParams.get('uddg') || u.searchParams.get('rut');
+          if (uddg) realHref = decodeURIComponent(uddg);
+        } catch(e) {}
+
+        let displayUrl = r.url || realHref;
+        try {
+          const u = new URL(realHref);
+          displayUrl = u.hostname + (u.pathname !== '/' ? u.pathname.substring(0,40) : '');
+        } catch(e) {}
+
+        const div = document.createElement('div');
+        div.className = 'result-item';
+        div.innerHTML = `
+          <div class="result-title"><a href="${ea(realHref)}" target="_blank">${esc(r.title)}</a></div>
+          <div class="result-snippet">${r.snippet}</div>
+          <div class="result-meta">
+            <span style="color:#080">${esc(displayUrl)}</span> -
+            <a href="${ea(realHref)}" target="_blank">Cached: 2k</a> -
+            <a href="#">GoogleScout</a>
+          </div>`;
+        listEl.appendChild(div);
+      });
+
+      renderPagination(page);
+
+    } catch(err) {
+      loadEl.style.display = 'none';
+      errEl.style.display  = 'block';
+      errEl.innerHTML = `<b>Error:</b> ${err.message}<br><br>
+      ¿Está corriendo el servidor? Abrí una terminal y ejecutá:<br>
+      <code style="background:#eee;padding:4px 8px;display:inline-block;margin-top:6px;">node server.js</code>`;
+      errEl.innerHTML = `<b>Error:</b> ${err.message}<br><br>
+      Is the local search server running? Open a terminal and run:<br>
+      <code style="background:#eee;padding:4px 8px;display:inline-block;margin-top:6px;">node server.js</code>`;
+    }
+  }
+
+  async function tryProxies(query, offset) {
+    const proxyUrl = buildProxySearchUrl(query, offset);
+    logSearchEvent('query sent', { query, offset, url: proxyUrl });
+
+    const resp = await fetch(proxyUrl, {
+      signal: AbortSignal.timeout(10000)
+    });
+    const text = await resp.text();
+
+    logSearchEvent('response received', {
+      query,
+      offset,
+      status: resp.status,
+      ok: resp.ok,
+      bodyLength: text.length
+    });
+
+    if (!resp.ok) {
+      throw new Error(text && text.length < 200 ? text : `Search provider returned ${resp.status}`);
+    }
+    if (!text || !text.trim()) {
+      throw new Error('Empty response from search provider');
+    }
+
+    return text;
+  }
+
+  async function fetchAndShow(query, page, options = {}) {
+    const { updateHistory = false, replaceHistory = false } = options;
+    const normalizedQuery = normalizeSearchQuery(query);
+    const safePage = Number.isInteger(page) && page >= 0 ? page : 0;
+
+    if (!normalizedQuery) {
+      showHome({ focusInput: true, updateHistory, replaceHistory });
+      return;
+    }
+
+    currentQuery = normalizedQuery;
+    currentPage = safePage;
+    document.title = `${normalizedQuery} - Google!`;
+
+    if (updateHistory) {
+      syncRoute(normalizedQuery, safePage, replaceHistory);
+    }
+
+    document.getElementById('main-page').style.display    = 'none';
+    document.getElementById('results-page').style.display = 'block';
+    document.getElementById('main-input').value = normalizedQuery;
+    document.getElementById('res-input').value = normalizedQuery;
+
+    const loadEl  = document.getElementById('loading');
+    const listEl  = document.getElementById('res-list');
+    const statsEl = document.getElementById('res-stats');
+    const paginEl = document.getElementById('pagination');
+    const errEl   = document.getElementById('error-msg');
+    const hrEl    = document.getElementById('res-hr');
+
+    loadEl.style.display = 'block';
+    listEl.innerHTML = statsEl.innerHTML = paginEl.innerHTML = '';
+    errEl.style.display = hrEl.style.display = 'none';
+
+    try {
+      const offset = safePage * 10;
+      const html = await tryProxies(normalizedQuery, offset);
+      loadEl.style.display = 'none';
+
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const items = extractProviderResults(doc);
+      const providerHasNoResults = !items.length && providerReturnedNoResults(doc);
+
+      logSearchEvent('results parsed', {
+        query: normalizedQuery,
+        page: safePage,
+        count: items.length,
+        providerHasNoResults
+      });
+
+      if (!items.length) {
+        if (providerHasNoResults) {
+          statsEl.innerHTML = `Your search - <b>${esc(normalizedQuery)}</b> - did not match any documents.`;
+          return;
+        }
+
+        errEl.style.display = 'block';
+        errEl.innerHTML = '<b>Error:</b> The search provider returned a response, but no results could be parsed.';
+        logSearchEvent('unparsed response preview', {
+          query: normalizedQuery,
+          preview: html.slice(0, 200)
+        });
+        return;
+      }
+
+      const from = offset + 1;
+      const to = offset + items.length;
+      statsEl.innerHTML = `Showing results ${from} - ${to} of approximately 234,000 for <b>${esc(normalizedQuery)}</b>. Search took 0.06 seconds.`;
+      hrEl.style.display = 'block';
+
+      items.forEach((r) => {
+        const realHref = r.href;
+        const displayUrl = buildDisplayUrl(r.url, realHref);
+
+        const div = document.createElement('div');
+        div.className = 'result-item';
+        div.innerHTML = `
+          <div class="result-title"><a href="${ea(realHref)}" target="_blank">${esc(r.title)}</a></div>
+          <div class="result-snippet">${r.snippet}</div>
+          <div class="result-meta">
+            <span style="color:#080">${esc(displayUrl)}</span> -
+            <a href="${ea(realHref)}" target="_blank">Cached: 2k</a> -
+            <a href="#">GoogleScout</a>
+          </div>`;
+        listEl.appendChild(div);
+      });
+
+      renderPagination(safePage);
+
+    } catch(err) {
+      loadEl.style.display = 'none';
+      errEl.style.display  = 'block';
+      errEl.innerHTML = `<b>Error:</b> ${err.message}<br><br>
+      Â¿EstÃ¡ corriendo el servidor? AbrÃ­ una terminal y ejecutÃ¡:<br>
+      <code style="background:#eee;padding:4px 8px;display:inline-block;margin-top:6px;">node server.js</code>`;
+      errEl.innerHTML = `<b>Error:</b> ${err.message}<br><br>
+      Is the local search server running? Open a terminal and run:<br>
+      <code style="background:#eee;padding:4px 8px;display:inline-block;margin-top:6px;">node server.js</code>`;
+    }
+  }
+
+  function renderPagination(cur) {
+    const el = document.getElementById('pagination');
+
+    const logo = document.createElement('span');
+    logo.className = 'page-res-logo';
+    logo.innerHTML = '<span style="color:#3c78d8">G</span><span style="color:#d93025">o</span><span style="color:#f5a623">o</span><span style="color:#3c78d8">g</span><span style="color:#188038">l</span><span style="color:#d93025">e</span>';
+    el.appendChild(logo);
+
+    if (cur > 0) {
+      const b = btn('< Previous', () => go(cur - 1));
+      el.appendChild(b);
+    }
+
+    const start = Math.max(0, cur - 3);
+    for (let i = start; i < start + 10; i++) {
+      const b = btn(i + 1, i !== cur ? () => go(i) : null);
+      if (i === cur) b.classList.add('current');
+      el.appendChild(b);
+    }
+
+    el.appendChild(btn('Next >', () => go(cur + 1)));
+  }
+
+  function go(p) {
+    fetchAndShow(currentQuery, p, { updateHistory: true });
+    window.scrollTo(0, 0);
+  }
+
+  function applyRouteState(options = {}) {
+    const { focusHomeInput = false } = options;
+    const { query, page } = readRouteState();
+
+    if (!query) {
+      showHome({ focusInput: focusHomeInput });
+      return;
+    }
+
+    fetchAndShow(query, page);
+  }
+
+  function btn(label, handler) {
+    const b = document.createElement('button');
+    b.className   = 'page-btn';
+    b.textContent = label;
+    if (handler) b.onclick = handler;
+    return b;
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function ea(s) { return String(s).replace(/"/g,'&quot;'); }
+</script>
+
+</body>
+</html>

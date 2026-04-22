@@ -1,0 +1,21 @@
+{
+  "name": "mi-browser",
+  "version": "1.0.0",
+  "description": "A mini desktop browser built with Electron BrowserView tabs.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^30.0.0",
+    "electron-builder": "^26.8.1"
+  },
+  "build": {
+    "appId": "com.mbrowser.app",
+    "productName": "M Browser",
+    "win": {
+      "target": "nsis"
+    }
+  }
+}
