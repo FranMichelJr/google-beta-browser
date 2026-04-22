@@ -96,20 +96,16 @@ input {
 }
 
 .window-title-group {
-  min-width: 0;
   display: flex;
   align-items: center;
-  gap: 4px;
 }
 
 .window-icon {
-  position: relative;
-  width: 13px;
-  height: 13px;
-  flex: 0 0 13px;
-  background: var(--win-white);
-  border: 1px solid var(--win-black);
-  box-shadow: inset 1px 1px 0 var(--win-light);
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  margin-right: 6px;
+  display: block;
 }
 
 .window-icon::before {
@@ -539,7 +535,8 @@ input {
 }
 
 .window-titlebar {
-  -webkit-app-region: drag;
+  display: flex;
+  align-items: center;
 }
 
 @media (max-width: 760px) {

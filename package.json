@@ -13,9 +13,10 @@
   },
   "build": {
     "appId": "com.mbrowser.app",
-    "productName": "M Browser",
+    "productName": "Google Beta",
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "Image/google.ico"
     }
   }
 }
