@@ -1,4 +1,4 @@
-# 🖥️ Google Beta Browser (1998 Experience)
+# 🖥️ Google Beta Browser (1998 Experience) 
 
 A fully functional retro desktop browser inspired by the original Google Beta (1998) and the Windows 98 interface.
 
